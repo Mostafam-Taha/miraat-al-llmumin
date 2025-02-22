@@ -1,0 +1,67 @@
+:root {
+    --vr-primary-color: #edebdd;
+    --vr-sys-color: #0e4b41;
+    --vr-btn-color: #fd970d;
+    --vr-margin-page: 100px;
+}
+
+* {
+    font-family: 'Amiri', serif;
+}
+
+body {
+    font-family: 'Amiri', serif;
+    background-color: var(--vr-primary-color);
+    color: var(--vr-sys-color);
+    padding: 0;
+    margin: 150px 90px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin: 0;
+}
+
+.section-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+} 
+
+.section-login .right-image .container img {
+    width: 100%;
+    height: 100%;
+}
+
+.section-login .left-sign-up .container form .content {
+    text-align: right;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.section-login .left-sign-up .container form .content input[type="text"], 
+.section-login .left-sign-up .container form .content input[type="email"], 
+.section-login .left-sign-up .container form .content input[type="password"] {
+    text-align: right;
+    outline: none;
+    border: #0e4b4144 1px solid;
+    border-radius: 7px;
+    padding: 0 15px;
+    width: 100%;
+    box-sizing: border-box;
+    height: 40px;
+    font-size: 15px;
+}
+
+.section-login .left-sign-up .container form .content input:focus {
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.25); /* ظل واضح بدون تشويش */
+}

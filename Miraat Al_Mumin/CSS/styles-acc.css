@@ -1,0 +1,100 @@
+:root {
+    --vr-primary-color: #edebdd;
+    --vr-sys-color: #0e4b41;
+    --vr-btn-color: #fd970d;
+    --vr-margin-page: 100px;
+    --vr-border-radius: 7px;
+}
+
+* {
+    font-family:"Baloo Bhaijaan 2", serif;
+} 
+
+body {
+    font-family: "Baloo Bhaijaan 2", serif;
+    font-family: "Ubuntu", serif;
+    background-color: var(--vr-sys-color);
+    color: var(--vr-primary-color);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    color: var(--fo-h1-h6-co);
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    margin: 35px 0;
+    border: var(--fc-border-width-none);
+    background-color: var(--fc-inp-border-co);
+    width: 100%;
+    height: 1px;
+}
+
+.section-signin {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.section-signin .container {
+    width: 100%;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.section-signin .container .welcome-website {
+    margin: 0 0 35px 0;
+}
+
+.section-signin .container .welcome-website h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--fo-h1-h6-co);
+}
+
+.section-signin .container .welcome-website p {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--fo-p-co);
+}
+
+.section-signin .container .card-si-coder {
+    background-color: #ffffff1e;
+    width: 230px;
+    padding: 10px 10px;
+    margin: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    border-radius: var(--vr-border-radius);
+    transition: background 0.3s ease-in-out,color 0.3s ease-in-out;
+}
+
+.section-signin .container .card-si-coder:hover {
+    background-color: var(--vr-primary-color);
+    color: var(--vr-sys-color);
+}

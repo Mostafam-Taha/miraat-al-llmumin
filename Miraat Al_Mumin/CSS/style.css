@@ -1,0 +1,255 @@
+:root {
+    --vr-primary-color: #edebdd;
+    --vr-sys-color: #0e4b41;
+    --vr-btn-color: #fd970d;
+    --vr-margin-page: 100px;
+    --vr-border-radius: 7px;
+}
+
+* {
+    font-family:"Baloo Bhaijaan 2", serif;
+} 
+
+body {
+    font-family: "Baloo Bhaijaan 2", serif;
+    font-family: "Ubuntu", serif;
+    background-color: var(--vr-primary-color);
+    color: var(--vr-sys-color);
+    margin: 0 100px;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin: 0;
+}
+
+/* Header */
+.header .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .navbar .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.header .navbar .logo i {
+    margin: 0 7.5px 0 0;
+
+}
+
+.header .navbar .body-navbar .un-order-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.header .navbar .body-navbar .un-order-list li a {
+    text-decoration: none;
+    color: var(--vr-sys-color);
+    padding: 0 15px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.header .navbar .accunt {
+    display: flex;
+    align-items: center;
+}
+
+.header .navbar .accunt .btn-creat-accunt button {
+    background-color: #ffffff00;
+    border: none;
+    color: var(--vr-sys-color);
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 4px 10px;
+    margin: 0 5px;
+    border-radius: 80px;
+}
+
+.header .navbar .accunt .btn-login-accunt button {
+    background-color: var(--vr-sys-color);
+    border: none;
+    color: #edebdd;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 4px 10px;
+    margin: 0 5px;
+    border-radius: 80px;
+}
+
+/* Home Section */
+.home {
+    margin: 40px 0;
+    direction: rtl;
+}
+.home .contanier h1 {
+    font-size: 38px ;
+    font-weight: 600;
+    text-align: center;
+}
+
+.home .contanier .ce-45-home-to-user {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home .contanier .ce-45-home-to-user .image-quran {
+    display: flex;
+    align-items: center;
+    margin: 20px 0 0 0;
+}
+.home .contanier .ce-45-home-to-user .image-quran img {
+    width: 280px;
+    height: 320px;
+    border-radius: 20px;
+    margin: 0 15px 0 0;
+}
+
+.home .contanier .ce-45-home-to-user .btn-text-quran .text-arraw p {
+    max-width: 280px;
+    margin: 0 0 7.5px 0;
+}
+
+.home .contanier .ce-45-home-to-user .btn-text-quran .btn-text-arrw  {
+    display: flex;
+    flex-direction: column;
+}
+
+.home .contanier .ce-45-home-to-user .btn-text-quran .btn-text-arrw button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: var(--vr-btn-color);
+    color: var(--vr-sys-color);
+    margin: 5px 0;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 7.5px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition:background ease-in-out 0.3s, color ease-in-out 0.3s;
+}
+
+.home .contanier .ce-45-home-to-user .btn-text-quran .btn-text-arrw .ca-2 {
+    background-color: var(--vr-sys-color);
+    color: var(--vr-primary-color);
+}
+
+.home .contanier .ce-45-home-to-user .btn-text-quran .btn-text-arrw button svg {
+    margin: 0 0 0 5px;
+}
+
+.home .contanier .ce-45-home-to-user .btn-text-quran .btn-text-arrw button:hover {
+    background-color: var(--vr-btn-color);
+    color: var(--vr-sys-color);
+}
+
+.home .contanier .btn-text-quran {
+    margin: 50px 0 0 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.home .contanier .btn-text-quran .btn-text-arrw {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: #0e4b4125 1px solid;
+    border-radius: 12px;
+    padding: 25px 20px;
+    cursor: pointer;
+    transition: background ease-in-out 0.3s;
+}
+
+.home .contanier .btn-text-quran .btn-text-arrw:hover{
+    background-color: var(--vr-sys-color);
+    color: var(--vr-primary-color);
+}
+
+.home .contanier .btn-text-quran .btn-text-arrw  .right-text {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.home .contanier .btn-text-quran .btn-text-arrw  .left-text {
+    padding: 10px 15px;
+    border-radius: var(--vr-border-radius);
+    background-color: #ffffff70;
+}
+
+/* Laptop */
+@media(max-width: 1024px) {
+    body {
+        margin: 0 50px;
+    }
+}
+
+@media(max-width: 768px) {
+    .home .contanier .btn-text-quran .btn-text-arrw {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: #0e4b4125 1px solid;
+        border-radius: 12px;
+        padding: 20px 15px;
+        cursor: pointer;
+        transition: background ease-in-out 0.3s;
+    }
+    
+    .home .contanier .btn-text-quran .btn-text-arrw:hover{
+        background-color: var(--vr-sys-color);
+        color: var(--vr-primary-color);
+    }
+    
+    .home .contanier .btn-text-quran .btn-text-arrw  .right-text {
+        font-size: 18px;
+        font-weight: 600;
+    }
+    
+    .home .contanier .btn-text-quran .btn-text-arrw  .left-text {
+        padding: 10px 13px;
+        border-radius: var(--vr-border-radius);
+        background-color: #ffffff70;
+    }    
+}
+
+@media(max-width: 425px) {
+    body {
+        margin: 0 10px;
+    }
+    .header .navbar .accunt {
+        display: none;
+    }
+
+    .header .navbar .logo strong {
+        display: none;
+    }
+
+    .home .contanier .btn-text-quran {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+}
