@@ -1,0 +1,236 @@
+:root {
+    --bs-primary-color: #ffffff;
+    --bs-secondary-color: rgba(214, 41, 62, 0.1);
+    --fc-background-color: hsla(44, 93%, 57%, 0.149);
+    --fc-btn-bg: #066ac9;
+    --fc-btn-bg-co: #001e2b;
+    --fc-color-btn-new: #d6293e!important;
+    --fc-inp-border-co: #dfe2e1;
+    --fo-h1-h6-co: #21313c;
+    --fc-p-co: #5f5f5f;
+    --fc-par-color: #ffc107!important;
+    --fc-prod-sale-color: #db3030!important;
+    --fc-cursor-poi: pointer;
+    --fc-margin-width: 0 100px;
+    --fc-padding-width-btn: 7px 22px;
+    --fc-border-color: #dfe2e1;
+    --fc-border-width-none: none;
+    --fc-border-width: 1px;
+    --fc-border-style: solid;
+    --fc-border-co-hevor: #066ac9;
+    --fc-border-radius-width: 7px;
+    --fc-box-shadow-hevor: 0px 0px 0px 5px #066bc954;
+    --primary-color: #4a6bff;
+    --secondary-color: #ff6b6b;
+    --dark-color: #2c3e50;
+    --light-color: #f8f9fa;
+    --text-color: #333;
+    --text-light: #777;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --border-radius: 8px;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    /* #Color GO pexels */
+    --fc-color-go-text: #E64F5E;
+    --fc-color-go: #FDDFC5;
+}
+
+.row {
+    --fc-breakpoint-labtop-L: 1440px;
+    --fc-breakpoint-laptop: 1024px;
+    --fc-breakpoint-md: ;
+    --fc-breakpoint-lg: ;
+    --fc-breakpoint-xl: ;
+    --fc-breakpoint-xxl: ;
+}
+
+* {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-family: 'Cairo', sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--bs-primary-color);
+    /* background-color: #001e2b; */
+    color: var(--fo-h1-h6-co);
+    margin: 0;
+    padding: 0;
+}
+
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cairo', sans-serif;
+    color: var(--fo-h1-h6-co);
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    font-family: 'Cairo', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    font-family: 'Cairo', sans-serif;
+    text-decoration: var(--fc-border-width-none);
+    color: var(--fc-p-co);
+}
+
+hr {
+    margin: 35px 0;
+    border: var(--fc-border-width-none);
+    background-color: var(--fc-inp-border-co);
+    width: 100%;
+    height: 1px;
+}
+
+/* Study Page Style */
+.mat-study {
+  width: 100%;
+  max-width: 1200px; /* الحد الأقصى للعرض */
+  margin: 0 auto; /* لتوسيط المحتوى */
+}
+
+.all-section {
+    margin: 100px 100px 50px  ;
+    text-align: right;
+}
+
+.card-ar {
+  
+}
+
+.card {
+  margin: auto;
+  margin-bottom: 20px;
+  width: min(300px, 100%);
+  background-color: #fefefe;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  gap: 10px;
+  color: #141417;
+}
+.card__hero {
+  background-color: #fef4e2;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 1.5rem;
+  font-size: 0.875rem;
+}
+.card__hero .card__job-title {
+  margin: 2rem 0;
+  font-size: 2rem;
+  font-weight: 600;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  text-align: center!important;
+}
+.card__hero-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  font-weight: 700;
+}
+.card__footer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  padding: 0.75rem;
+  row-gap: 1rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  direction: rtl;
+}
+@media (min-width: 340px) {
+  .card__footer {
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+.card__job-summary {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  gap: 0.75rem;
+}
+.card__btn {
+  width: 100%;
+  font-weight: 400;
+  border: none;
+  display: block;
+  cursor: pointer;
+  text-align: center;
+  padding: 0.5rem 1.25rem;
+  border-radius: 1rem;
+  background-color: #141417;
+  color: #fff;
+  font-size: 1rem;
+}
+@media (min-width: 340px) {
+  .card__btn {
+    width: max-content;
+  }
+}
+
+.study-card-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* المسافة بين العناصر */
+  justify-content: center; /* توسيط العناصر إذا لم تملأ الصف */
+}
+
+.card {
+  flex: 1 1 calc(33.333% - 20px); /* 3 عناصر في الصف مع حساب الجاب */
+  min-width: 300px; /* أدنى عرض لكل عنصر */
+  max-width: 100%; /* التأكد من عدم تجاوز الحدود */
+}
+
+@media (max-width: 1200px) {
+  .card {
+    flex: 1 1 calc(50% - 20px); /* عنصرين في الصف للشاشات المتوسطة */
+  }
+}
+
+@media (max-width: 1024px) {
+  .dash-prt {
+    margin: 95px 0 30px 0; /* تعديل الهامش للجوال */
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex: 1 1 100%; /* عنصر واحد في الصف للجوال */
+  }
+
+  .dash-prt {
+    margin: 100px 0 50px 0; /* تعديل الهامش للجوال */
+  }
+}
+
+@media (max-width: 1024px) {
+  .dash-prt {
+    margin: 35px 0 10px 0; /* تعديل الهامش للجوال */
+  }
+}
