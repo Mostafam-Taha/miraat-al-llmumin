@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .card img {
+            border-radius: 10px; /* زوايا ناعمة للصور */
+        }
+
+        canvas {
+            border-radius: 20px; /* زوايا ناعمة للرسم */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <!-- الرسم البياني -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">أداء العام الماضي</h5>
+                        <canvas id="lineChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- الدائرة ومعلومات المبيعات -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">إجمالي المبيعات</h5>
+                        <h2>9600</h2>
+                        <canvas id="doughnutChart" width="200" height="200"></canvas>
+                        <ul class="list-unstyled mt-4">
+                            <li><span class="badge bg-success">●</span> الشحن: 32.98 دولار</li>
+                            <li><span class="badge bg-warning">●</span> المبالغ المستردة: 11.00 دولار</li>
+                            <li><span class="badge bg-danger">●</span> الطلب: 14.87 دولار</li>
+                            <li><span class="badge bg-primary">●</span> الدخل: 12.00 دولار</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // الرسم البياني الخطي
+        const lineChart = new Chart(document.getElementById('lineChart'), {
+            type: 'line',
+            data: {
+                labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو'],
+                datasets: [
+                    {
+                        label: 'إجمالي المشكل',
+                        data: [30, 40, 50, 80, 10, 70, 90],
+                        borderColor: 'green',
+                        backgroundColor: 'rgba(0, 128, 0, 0.1)',
+                        fill: true,
+                        borderWidth: 2,
+                        tension: 0.4,
+                        pointBackgroundColor: 'rgba(75, 192, 192, 1)', // لون النقاط
+                        pointBorderColor: '#fff', // إطار النقاط
+                        pointBorderWidth: 2,
+                        pointRadius: 5, // حجم النقاط
+                        pointHoverRadius: 7, // حجم النقاط عند التمرير عليها
+                    },
+                    {
+                        label: 'إجمالي المصروفات',
+                        data: [20, 50, 40, 70, 30, 50, 40],
+                        borderColor: 'orange',
+                        backgroundColor: 'rgba(255, 165, 0, 0.1)',
+                        fill: true,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                    },
+                    y: {
+                        beginAtZero: true,
+                    }
+                }
+            }
+        });
+
+    
+        // الرسم الدائري
+        const doughnutChart = new Chart(document.getElementById('doughnutChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['الشحن', 'المبالغ المستردة', 'الطلب', 'الدخل'],
+                datasets: [
+                    {
+                        data: [32.98, 11.00, 14.87, 12.00],
+                        backgroundColor: ['#28a745', '#ffc107', '#dc3545', '#007bff'],
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                cutout: '75%', /* اجعل وسط الدائرة مفرغًا لتبدو أنيقة */
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                },
+                borderRadius: 10, /* زوايا ناعمة للعناصر */
+            },
+
+        });
+    </script>
+        
+</body>
+</html>

@@ -1,0 +1,140 @@
+:root {
+    --bs-primary-color: #ffffff;
+    --fc-light-primary: #ceefce;
+    --fc-btn-bg: #0aad0a;
+    --fc-btn-bg-co: #001e2b;
+    --fc-inp-border-co: #dfe2e1;
+    --fo-h1-h6-co: #21313c;
+    --fc-p-co: #5f5f5f;
+    --fc-dark: #001e2b;
+    --fc-par-color: #ffc107!important;
+    --fc-prod-sale-color: #db3030!important;
+    --fc-cursor-poi: pointer;
+    --fc-margin-width: 0 100px;
+    --fc-padding-width-btn: 7px 22px;
+    --fc-border-color: #dfe2e1;
+    --fc-border-width-none: none;
+    --fc-border-width: 1px;
+    --fc-border-style: solid;
+    --fc-border-style-width: solid 1px;
+    --fc-border-co-hevor: #0aad0ac6;
+    --fc-border-radius-width: 7px;
+    --fc-box-shadow-hevor: 0px 0px 0px 5px #0aad0a42;
+}
+
+* {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bs-primary-color);
+    color: var(--fo-h1-h6-co);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    color: var(--fo-h1-h6-co);
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.section-edit {
+    margin: 100px;
+    border-radius: var(--fc-border-radius-width);
+    border: var(--fc-border-color) var(--fc-border-style-width);
+    text-align: center;
+    padding: 20px;
+}
+
+.form-edit-product .griy-dis {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-edit-product .fr-ro-in-125 {
+    text-align: right;
+}
+
+.form-edit-product label {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--fc-p-co);
+}
+
+.form-edit-product input[type="text"],
+.form-edit-product input[type="number"] {
+    border: var(--fc-inp-border-co) var(--fc-border-style) var(--fc-border-width);
+    border-radius: var(--fc-border-radius-width);
+    padding: 10px 15px;
+    outline: none;
+    transition: border .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.form-edit-product input[type="text"]:focus,
+.form-edit-product input[type="number"]:focus {
+    border: var(--fc-border-co-hevor) var(--fc-border-width) var(--fc-border-style);
+    box-shadow: var(--fc-box-shadow-hevor);
+}
+
+.form-edit-product .button-update-product {
+    margin: 20px 0;
+    width: 100%;
+    border: var(--fc-border-color) var(--fc-border-style-width);
+    border-radius: var(--fc-border-radius-width);
+    padding: var(--fc-padding-width-btn);
+    cursor: var(--fc-cursor-poi);
+    color: var(--bs-primary-color);
+    background-color: var(--fc-btn-bg);
+    transition: background .15s ease-in-out, color .15s ease-in-out;
+}
+
+.form-edit-product .button-update-product:focus {
+    background-color: #0b9f0b;
+    box-shadow: var(--fc-box-shadow-hevor);
+}
+
+.section-edit .form-edit-product .fr-ro-in-125 .label-product-image {
+    display: inline-block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 55px;
+    border: var(--fc-border-width) dashed var(--fc-border-color);
+    border-radius: var(--fc-border-radius-width);
+    text-align: center;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    box-sizing: border-box;
+    height: 150px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--fc-p-co);
+}
+
+.section-edit .form-edit-product .fr-ro-in-125 input[type="file"] {
+    display: none;
+}
+
+.section-edit .form-edit-product .ro-in-la-123 {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-edit .form-edit-product .ro-in-la-123 img {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--fc-border-radius-width);
+}

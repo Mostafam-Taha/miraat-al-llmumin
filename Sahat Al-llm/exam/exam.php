@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         unset($_SESSION['show_unanswered_warning']);
         
         // توجيه إلى صفحة النتائج
-        header("Location: results.php?result_id=" . $examResultId);
+        header("Location: profile.php?result_id=" . $examResultId);
         exit();
     }
     

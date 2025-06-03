@@ -4,7 +4,7 @@ session_start();
 
 // التحقق من تسجيل الدخول
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit();
 }
 
@@ -61,7 +61,7 @@ if (isset($_POST['lesson_name'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="icon" href="../image/logo/book-open-reader-solid.svg" type="image/svg">
+    <link rel="icon" href="image/logo/book-open-reader-solid.svg" type="image/svg">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B2Z6G6EY81"></script>
     <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-B2Z6G6EY81');</script>
     <link rel="stylesheet" href="../css/style.css">
@@ -72,6 +72,91 @@ if (isset($_POST['lesson_name'])) {
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-K73Z87CS');</script>
     <!-- End Google Tag Manager -->
+    <style>
+        /* في ملف study-mat.css أو في قسم CSS الخاص بك */
+.card-ar {
+    transition: all 0.3s ease;
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-ar:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+
+.le-card-to {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid #eee;
+}
+
+.le-card-to:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.08);
+    border-color: #4CAF50;
+}
+
+.card-btn {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-btn:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.card-btn:hover {
+    background-color: #45a049;
+}
+
+.card-btn:hover:after {
+    animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(20, 20);
+        opacity: 0;
+    }
+}
+
+
+
+.mat-study, .le-matir, #lessonSelection {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* عند الاختفاء */
+.hide-section {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
+}
+
+/* عند الظهور */
+.show-section {
+    opacity: 1;
+    transform: translateY(0);
+}
+    </style>
 </head>
 <body>
     <div class="container">        
@@ -80,7 +165,7 @@ if (isset($_POST['lesson_name'])) {
                 <div class="container">
                     <div class="dash-prt">
                         <h3>المواد الدراسية</h3>
-                        <span><a href="cour-3years.php">الرئسية</a><span class="back-slach">/</span><span>المواد الدراسية</span></span>
+                        <span><a href="../cour-3years.php">الرئسية</a><span class="back-slach">/</span><span>المواد الدراسية</span></span>
                     </div>
                 </div>
                 <section class="mat-study">
@@ -136,9 +221,9 @@ if (isset($_POST['lesson_name'])) {
                                         <div class="lech-top">
                                             <?php if ($type == 'اختبارات شاملة'): ?>
                                                 <i class="bi bi-ui-checks"></i>
-                                            <?php elseif ($type == 'بنك الأسئلة'): ?>
+                                            <?php elseif ($type == 'بنك اسئلة'): ?>
                                                 <i class="bi bi-ui-checks-grid"></i>
-                                            <?php elseif ($type == 'امتحانات الثانوية'): ?>
+                                            <?php elseif ($type == 'إمتحان الوزارة'): ?>
                                                 <img src="../image/element/logo technical education.png" alt="لا توجد صورة" loading="lazy">
                                             <?php else: ?>
                                                 <i class="bi bi-rocket-takeoff"></i>
@@ -191,22 +276,6 @@ if (isset($_POST['lesson_name'])) {
                     <?php endif; ?>
                 </main>
             </main>
-            <!-- اختيار الدرس (يبقى كما هو) -->
-            <!-- <?php if (!empty($lessons)): ?>
-            <div>
-                <label for="lesson_name">اختر الدرس:</label>
-                <select name="lesson_name" id="lesson_name" required>
-                    <option value="">-- اختر الدرس --</option>
-                    <?php foreach ($lessons as $lesson): ?>
-                        <option value="<?= $lesson ?>"><?= $lesson ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <?php endif; ?>
-            
-            <?php if (!empty($lessons)): ?>
-            <button type="submit">ابدأ الاختبار</button>
-            <?php endif; ?> -->
         </form>
     </div>
     

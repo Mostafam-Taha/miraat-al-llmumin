@@ -213,6 +213,55 @@ hr {
     font-weight: 400;
 }
 
+/* Style select-exam */
+.select-exam {
+    width: 70%;
+}
+.select-exam .container .select {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 12px 15px;
+    border-radius: 15px;
+    background-color: var(--fc-background-color);
+    box-shadow: var(--fc-box-shadow);
+    margin-bottom: 10px;
+    cursor: var(--fc-cursor-poi);
+}
+
+.select-exam .container .top-exam,.container .contol-exam {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.select-exam .container .top-exam svg {
+    margin-left: 7px;
+    width: 20px;
+}
+
+.select-exam .container .top-exam .title-exam, .container .contol-exam .bottun,
+.contol-exam .timer {
+    font-size: 14px;
+    font-weight: 400;
+    margin-right: 5px;
+}
+
+.container .contol-exam .bottun,
+.contol-exam .timer {
+    padding: 1px 7px;
+    border-radius: var(--fc-border-radius-width);
+    color: var(--fc-p-co);
+}
+
+.container .contol-exam .bottun {
+    background-color: #1d3b531a;
+}
+
+.container .contol-exam .timer {
+    background-color: #17a3b835;
+} 
+
 @media (max-width: 1024px) {
     .dash-prt {
         margin-top: 50px;
@@ -220,6 +269,9 @@ hr {
 }
 
 @media (max-width: 768px) {
+    .select-exam {
+        width: 100%;
+    }
     .all-section .cent {
         flex-direction: column;
     }
@@ -248,3 +300,4 @@ hr {
         margin-bottom: 10px;
     }
 }
+

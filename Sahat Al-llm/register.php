@@ -100,12 +100,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form action="register.php" method="post">
                 <div class="form-group">
                     <label for="username">اسم المستخدم</label>
-                    <input type="text" id="username" name="username" value="<?php echo isset($username) ? $username : ''; ?>" required>
+                    <input type="text" id="username" name="username" required>
                     <?php if (!empty($errors['username'])): ?>
                         <div class="error"><?php echo $errors['username']; ?></div>
                     <?php endif; ?>
                 </div>
-                
+                    
                 <div class="form-group">
                     <label for="email">البريد الإلكتروني</label>
                     <input type="email" id="email" name="email" value="<?php echo isset($email) ? $email : ''; ?>">

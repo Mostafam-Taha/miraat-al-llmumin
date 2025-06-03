@@ -3,7 +3,7 @@ session_start();
 
 // إذا كان المستخدم مسجل دخول بالفعل، توجيهه للصفحة الرئيسية
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-    header('Location: dashboard.php');
+    header('Location: cour-3years.php');
     exit;
 }
 
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form action="login.php" method="post">
             <div class="form-group">
                 <label for="username">اسم المستخدم</label>
-                <input type="text" id="username" name="username" value="<?php echo isset($username) ? $username : ''; ?>" required>
+                <input type="text" id="username" name="username" required>
                 <?php if (!empty($errors['username'])): ?>
                     <div class="error"><?php echo $errors['username']; ?></div>
                 <?php endif; ?>
@@ -100,5 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ليس لديك حساب؟ <a href="register.php">إنشاء حساب جديد</a>
         </div>
     </div>
+    
+    
 </body>
 </html>
