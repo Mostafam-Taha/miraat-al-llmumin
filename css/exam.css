@@ -1,0 +1,471 @@
+        /* CSS متجاوب لجميع الأجهزة */
+        body {
+            background-color: #ffffff!important;
+            font-family: "Noto Kufi Arabic", 'Cairo', sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            padding-right: 0;
+            padding-left: 0;
+            margin-top: 65px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .exam-container {
+            background-color: white;
+            border-radius: 10px;
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        .p-4 {
+            padding: .7rem !important;
+        }
+
+        /* تحسينات للشاشات الصغيرة */
+        @media (max-width: 767.98px) {
+            .exam-container {
+                padding: 15px 5px;
+                margin: 0px auto;
+                border-radius: 8px;
+            }
+            
+            .exam-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .exam-header h3 {
+                font-size: 1.1rem;
+            }
+            
+            .badge, .timer {
+                font-size: 0.9rem !important;
+            }
+            
+            .question-card h4 {
+                font-size: 1.1rem;
+            }
+            
+            .option-label {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .btn {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* تحسينات للشاشات المتوسطة */
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            .exam-container {
+                padding: 25px;
+            }
+            
+            .container {
+                max-width: 900px;
+            }
+        }
+
+        /* تحسينات للشاشات الكبيرة */
+        @media (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+        }
+
+        /* تحسينات إضافية للتجاوب */
+        .exam-header {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .question-card {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        .question-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 10px 0;
+            border: 1px solid #eee;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: block;
+        }
+
+        .question-image:hover {
+            transform: scale(1.02);
+        }
+
+        .option-label {
+            display: block;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            word-break: break-word;
+        }
+
+        .option-label:hover {
+            background-color: #f8f9fa;
+            border-color: #adb5bd;
+        }
+
+        .option-input:checked + .option-label {
+            background-color: #e9f7fe;
+            border-color: #0d6efd;
+            color: #0d6efd;
+        }
+
+        .progress-segment {
+            height: 10px;
+            margin-right: 2px;
+            flex-grow: 1;
+            cursor: pointer;
+        }
+
+        .progress-segment:last-child {
+            margin-right: 0;
+        }
+
+        .answered {
+            background-color: #198754;
+        }
+
+        .unanswered {
+            background-color: #ffc107;
+        }
+
+        .current-question {
+            background-color: #0d6efd !important;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .timer {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #dc3545;
+        }
+
+        /* تحسينات لأزرار التنقل */
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .nav-buttons .btn {
+            flex: 1 1 auto;
+            min-width: 120px;
+        }
+
+        /* تحسينات للشاشات الصغيرة جدًا */
+        @media (max-width: 575.98px) {
+            .nav-buttons .btn {
+                flex: 1 1 100%;
+                margin-bottom: 10px;
+            }
+            
+            .d-flex.justify-content-between {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .progress-segment {
+                height: 8px;
+            }
+        }
+
+        @media (min-width: 576px) {
+            .container, .container-sm {
+                max-width: 680px;
+            }
+        }
+
+        /* تنسيق عام للرأس */
+        .dashboard-header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        /* تأثير عند التمرير */
+        .dashboard-header.scrolled {
+            padding: 10px 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* تنسيق الشعار */
+        .dashboard-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            color: var(--h1-h6-co);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+            font-family: 'Tajawal', sans-serif;
+            background: var(--h1-h6-co);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* تنسيق قائمة التنقل */
+        .dashboard-navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 25px;
+        }
+
+        .navbar-item {
+            position: relative;
+        }
+
+        .navbar-link {
+            color: #4a5568;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar-link:hover {
+            color: #4361ee;
+            background-color: #eef2ff;
+        }
+
+        .navbar-link.active {
+            color: #4361ee;
+            background-color: #eef2ff;
+        }
+
+        /* تأثير عند التفعيل */
+        .navbar-item::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(to right, #4361ee, #3f37c9);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .navbar-item:hover::after,
+        .navbar-item.active::after {
+            width: 70%;
+        }
+
+        /* زر القائمة المنسدلة للجوال */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #4361ee;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* التكيف مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .dashboard-header {
+                padding: 15px 20px;
+            }
+            
+            .navbar-list {
+                position: fixed;
+                top: 67px;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                background: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                box-shadow: -3px 13px 15px rgba(0, 0, 0, 0.1);
+                border-radius: 0 0 0 15px;
+                transition: right 0.3s ease;
+                gap: 15px;
+                height: 100vh;
+            }
+            
+            .navbar-list.active {
+                right: 0;
+            }
+            
+            .navbar-link {
+                width: 100%;
+                padding: 12px 15px;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .navbar-item::after {
+                bottom: 0;
+                left: 0;
+                transform: none;
+                width: 3px;
+                height: 0;
+            }
+            
+            .navbar-item:hover::after,
+            .navbar-item.active::after {
+                width: 3px;
+                height: 70%;
+            }
+        }
+
+        /* إضافة تأثيرات حركية */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .navbar-item {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .navbar-item:nth-child(1) { animation-delay: 0.1s; }
+        .navbar-item:nth-child(2) { animation-delay: 0.2s; }
+        .navbar-item:nth-child(3) { animation-delay: 0.3s; }
+        .navbar-item:nth-child(4) { animation-delay: 0.4s; }
+
+
+
+
+ /* التنسيقات الأساسية */
+    .navbar-item.dropdown {
+        position: relative;
+    }
+    
+    .dropdown-menu {
+        display: block;
+        position: absolute;
+        background-color: #fff;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        right: 0;
+        border-radius: 4px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+    }
+    
+    .dropdown-menu li {
+        padding: 8px 16px;
+    }
+    
+    .dropdown-menu li a {
+        color: #333;
+        text-decoration: none;
+        display: block;
+        transition: all 0.2s;
+    }
+    
+    .dropdown-menu li a:hover {
+        background-color: #f5f5f5;
+        padding-right: 20px;
+    }
+    
+    .navbar-item.dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    /* تأثيرات إضافية للروابط الرئيسية */
+    .navbar-link {
+        position: relative;
+        transition: all 0.3s;
+    }
+    
+    .navbar-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        right: 0;
+        background-color: #3498db;
+        transition: width 0.3s;
+    }
+    
+    .navbar-link:hover::after {
+        width: 100%;
+    }
+    
+    /* تأثيرات عند النقر */
+    .navbar-link:active {
+        transform: scale(0.95);
+    }

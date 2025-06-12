@@ -1,0 +1,323 @@
+/* متغيرات الألوان */
+:root {
+    --primary-color: #4361ee;
+    --primary-dark: #3a56d4;
+    --secondary-color: #3f37c9;
+    --success-color: #4cc9f0;
+    --error-color: #f72585;
+    --warning-color: #f8961e;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --gray-color: #6c757d;
+    --border-color: #dee2e6;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* إعادة الضبط الأساسية */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: var(--dark-color);
+    line-height: 1.6;
+    direction: rtl;
+}
+
+/* تصميم الحاوية الرئيسية */
+.register-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+/* رأس الصفحة */
+.register-header {
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    text-align: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.logo i {
+    font-size: 2.5rem;
+    margin-left: 1rem;
+}
+
+.register-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.register-header h2 {
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+    font-weight: 500;
+}
+
+.register-header p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* التنبيهات */
+.alert {
+    display: flex;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 8px;
+    align-items: center;
+}
+
+.alert-icon {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}
+
+.alert-content p {
+    margin: 0.2rem 0;
+}
+
+.alert-error {
+    background-color: #fde8e8;
+    color: var(--error-color);
+    border-right: 4px solid var(--error-color);
+}
+
+.alert-success {
+    background-color: #e6f7ee;
+    color: #28a745;
+    border-right: 4px solid #28a745;
+}
+
+/* نموذج التسجيل */
+.register-form {
+    padding: 2rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+label i {
+    margin-left: 0.5rem;
+    color: var(--primary-color);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* حقول كلمة المرور */
+.password-input {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--gray-color);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+}
+
+/* حقل الهاتف */
+.phone-input {
+    display: flex;
+}
+
+.country-code {
+    background-color: #f1f3f5;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px 0 0 8px;
+    color: var(--gray-color);
+}
+
+.phone-input input {
+    border-radius: 0 8px 8px 0;
+}
+
+/* تحميل الملفات */
+.file-upload {
+    position: relative;
+}
+
+.file-upload-label {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: #f8f9fa;
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.file-upload-label:hover {
+    background-color: #e9ecef;
+    border-color: var(--primary-color);
+}
+
+.file-upload-label i {
+    margin-left: 0.5rem;
+    color: var(--primary-color);
+}
+
+.file-name {
+    margin-right: auto;
+    color: var(--gray-color);
+    font-size: 0.9rem;
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* زر الإرسال */
+.form-footer {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.btn-submit {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 200px;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+}
+
+.btn-submit i {
+    margin-left: 0.5rem;
+}
+
+.login-link {
+    margin-top: 1.5rem;
+    color: var(--gray-color);
+}
+
+.login-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* تصميم متجاوب */
+@media (max-width: 768px) {
+    .register-container {
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .register-header {
+        padding: 1.5rem;
+    }
+    
+    .register-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .register-header h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .register-form {
+        padding: 1.5rem;
+    }
+    
+    .btn-submit {
+        width: 100%;
+    }
+}
