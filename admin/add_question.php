@@ -2,6 +2,10 @@
 // استدعاء اتصال قاعدة البيانات
 require_once '../php/config.php';
 require_once '../php/check_session.php';
+
+// متغير لتخزين بيانات آخر سؤال مضاف
+$last_question = null;
+
 // معالجة إرسال النموذج
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // تنظيف المدخلات
@@ -20,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $note4 = isset($_POST['note4']) ? sanitizeInput($_POST['note4']) : null;
     $added_by = $_SESSION['user_id'];
     $question_image = null;
+    $difficulty_level = sanitizeInput($_POST['difficulty_level']);
 
     // معالجة رفع الصورة
     if (isset($_FILES['question_image']) && $_FILES['question_image']['error'] === UPLOAD_ERR_OK) {
@@ -53,15 +58,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // إعداد استعلام الإدراج
             $stmt = $pdo->prepare("INSERT INTO questions 
                 (question_text, question_image, option1, option2, option3, option4, 
-                correct_answer, subject, lesson_name, question_type, note1, note2, note3, note4, added_by) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                correct_answer, subject, lesson_name, question_type, note1, note2, note3, note4, added_by, difficulty_level) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             // تنفيذ الاستعلام مع إضافة lesson_name
             $stmt->execute([
                 $question_text, $question_image, $option1, $option2, $option3, $option4, 
                 $correct_answer, $subject, $lesson_name, $question_type, 
-                $note1, $note2, $note3, $note4, $added_by
+                $note1, $note2, $note3, $note4, $added_by, $difficulty_level
             ]);
+
+            // استرجاع آخر سؤال تمت إضافته بواسطة هذا المستخدم
+            $stmt = $pdo->prepare("SELECT * FROM questions WHERE added_by = ? ORDER BY id DESC LIMIT 1");
+            $stmt->execute([$added_by]);
+            $last_question = $stmt->fetch(PDO::FETCH_ASSOC);
 
             $success_message = "تمت إضافة السؤال بنجاح!";
         } catch (PDOException $e) {
@@ -133,6 +143,165 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color: #101010;
             color: #e0e0e0;
         }
+
+        /* إشعار آخر سؤال - تصميم متقدم */
+        .last-question-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            border: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .last-question-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .last-question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #4CAF50, #8BC34A);
+        }
+        
+        .last-question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .last-question-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            font-size: 18px;
+        }
+        
+        .last-question-title {
+            font-weight: 700;
+            color: #2E7D32;
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        
+        .last-question-text {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .last-question-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        
+        .last-question-item {
+            background-color: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+        
+        .last-question-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .last-question-label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .last-question-value {
+            font-weight: 600;
+            color: #343a40;
+            font-size: 0.95rem;
+        }
+        
+        .correct-answer {
+            background-color: #E8F5E9;
+            border-left: 3px solid #4CAF50;
+        }
+        
+        /* Dark Mode Styles */
+        body.dark-mode .last-question-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .last-question-text,
+        body.dark-mode .last-question-item {
+            background-color: #252525;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .last-question-value {
+            color: #f8f9fa;
+        }
+        
+        body.dark-mode .last-question-label {
+            color: #b0b0b0;
+        }
+        
+        body.dark-mode .correct-answer {
+            background-color: #1B5E20;
+            border-left: 3px solid #4CAF50;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .last-question-card {
+            animation: fadeIn 0.5s ease-out;
+        }
+        /* في قسم الـ style */
+        .easy-level {
+            color: #4CAF50;
+        }
+
+        .medium-level {
+            color: #FFC107;
+        }
+
+        .hard-level {
+            color: #F44336;
+        }
+
+        /* في كود PHP لعرض مستوى الصعوبة */
+        <span class="last-question-value <?php 
+            echo $last_question['difficulty_level'] === 'سهل' ? 'easy-level' : 
+                ($last_question['difficulty_level'] === 'صعب' ? 'hard-level' : 'medium-level'); 
+        ?>">
+            <?php echo htmlspecialchars($last_question['difficulty_level']); ?>
+        </span>
     </style>
 </head>
 <body>
@@ -143,6 +312,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             
             <div class="card-body">
+                <?php if (isset($success_message) && $last_question): ?>
+                    <div class="last-question-card">
+                        <div class="last-question-header">
+                            <div class="last-question-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <h3 class="last-question-title">تمت إضافة السؤال بنجاح</h3>
+                        </div>
+                        
+                        <div class="last-question-text">
+                            <?php 
+                            $short_text = mb_substr($last_question['question_text'], 0, 150, 'UTF-8');
+                            if (mb_strlen($last_question['question_text'], 'UTF-8') > 150) {
+                                $short_text .= '...';
+                            }
+                            echo htmlspecialchars($short_text);
+                            ?>
+                        </div>
+                        
+                        <div class="last-question-grid">
+                            <div class="last-question-item correct-answer">
+                                <span class="last-question-label">الإجابة الصحيحة</span>
+                                <span class="last-question-value">
+                                    <?php echo htmlspecialchars($last_question['option'.$last_question['correct_answer']]); ?>
+                                </span>
+                            </div>
+                            
+                            <div class="last-question-item">
+                                <span class="last-question-label">المادة الدراسية</span>
+                                <span class="last-question-value">
+                                    <?php echo htmlspecialchars($last_question['subject']); ?>
+                                </span>
+                            </div>
+                            
+                            <div class="last-question-item">
+                                <span class="last-question-label">اسم الدرس</span>
+                                <span class="last-question-value">
+                                    <?php echo htmlspecialchars($last_question['lesson_name']); ?>
+                                </span>
+                            </div>
+                            
+                            <div class="last-question-item">
+                                <span class="last-question-label">نوع السؤال</span>
+                                <span class="last-question-value">
+                                    <?php echo htmlspecialchars($last_question['question_type']); ?>
+                                </span>
+                            </div>
+                            <div class="last-question-item">
+                                <span class="last-question-label">مستوى الصعوبة</span>
+                                <span class="last-question-value">
+                                    <?php echo htmlspecialchars($last_question['difficulty_level']); ?>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                            
                 <?php if (isset($success_message)): ?>
                     <div class="message success">
                         <i class="fas fa-check-circle"></i>
@@ -180,7 +406,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label>خيارات الإجابة</label>
                         <div class="options-container">
-                            <div class="option-item">
+                        <div class="option-item">
                                 <label for="option1">الاختيار الأول</label>
                                 <input type="text" id="option1" name="option1" class="form-control" required>
                                 
@@ -193,8 +419,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="option-item">
                                 <label for="option2">الاختيار الثاني</label>
                                 <input type="text" id="option2" name="option2" class="form-control" required>
-                                
-                                <div class="note-input">
+                            
+                            <div class="note-input">
                                     <label for="note2">ملاحظة (اختيارية)</label>
                                     <input type="text" id="note2" name="note2" class="form-control">
                                 </div>
@@ -244,6 +470,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="text" id="lesson_name" name="lesson_name" class="form-control" required>
                     </div>
                     
+                    <div class="form-group">
+                        <label for="difficulty_level">مستوى الصعوبة</label>
+                        <div class="select-wrapper">
+                            <select id="difficulty_level" name="difficulty_level" class="form-control" required>
+                                <option value="سهل">سهل</option>
+                                <option value="متوسط" selected>متوسط</option>
+                                <option value="صعب">صعب</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="question_type">نوع السؤال</label>
                         <div class="select-wrapper">
@@ -337,6 +574,103 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             input.addEventListener('blur', function() {
                 this.parentElement.classList.remove('focused');
             });
+        });
+        </script>
+        <script>
+        // إضافة تأثيرات لبطاقة آخر سؤال
+        document.addEventListener('DOMContentLoaded', function() {
+            const lastQuestionCard = document.querySelector('.last-question-card');
+            
+            if (lastQuestionCard) {
+                // تأثير عند الظهور
+                setTimeout(() => {
+                    lastQuestionCard.style.opacity = '1';
+                }, 100);
+                
+                // إمكانية إغلاق البطاقة
+                const closeBtn = document.createElement('button');
+                closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                closeBtn.style.position = 'absolute';
+                closeBtn.style.top = '15px';
+                closeBtn.style.left = '15px';
+                closeBtn.style.background = 'transparent';
+                closeBtn.style.border = 'none';
+                closeBtn.style.color = '#6c757d';
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.style.fontSize = '1rem';
+                closeBtn.style.transition = 'color 0.2s';
+                
+                closeBtn.addEventListener('mouseover', () => {
+                    closeBtn.style.color = '#f44336';
+                });
+                
+                closeBtn.addEventListener('mouseout', () => {
+                    closeBtn.style.color = '#6c757d';
+                });
+                
+                closeBtn.addEventListener('click', () => {
+                    lastQuestionCard.style.opacity = '0';
+                    setTimeout(() => {
+                        lastQuestionCard.style.display = 'none';
+                    }, 300);
+                });
+                
+                lastQuestionCard.appendChild(closeBtn);
+            }
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // عناصر الإدخال للاختيارات والملاحظات
+            const inputs = {
+                option1: document.getElementById('option1'),
+                note1: document.getElementById('note1'),
+                option2: document.getElementById('option2'),
+                note2: document.getElementById('note2'),
+                option3: document.getElementById('option3'),
+                note3: document.getElementById('note3'),
+                option4: document.getElementById('option4'),
+                note4: document.getElementById('note4')
+            };
+
+            // تحميل البيانات المحفوظة عند تحميل الصفحة
+            function loadSavedData() {
+                for (let i = 1; i <= 3; i++) {
+                const optionKey = `option${i}`;
+                const noteKey = `note${i}`;
+                
+                if (localStorage.getItem(optionKey)) {
+                    inputs[optionKey].value = localStorage.getItem(optionKey);
+                }
+                if (localStorage.getItem(noteKey)) {
+                    inputs[noteKey].value = localStorage.getItem(noteKey);
+                }
+                }
+            }
+
+            // حفظ البيانات عند تغييرها
+            function setupEventListeners() {
+                for (let i = 1; i <= 3; i++) {
+                const optionKey = `option${i}`;
+                const noteKey = `note${i}`;
+                
+                inputs[optionKey].addEventListener('input', function() {
+                    localStorage.setItem(optionKey, this.value);
+                });
+                
+                inputs[noteKey].addEventListener('input', function() {
+                    localStorage.setItem(noteKey, this.value);
+                });
+                }
+                
+                // مسح أي بيانات محفوظة للاختيار الرابع (إن وجدت)
+                localStorage.removeItem('option4');
+                localStorage.removeItem('note4');
+            }
+
+            // تهيئة الصفحة
+            loadSavedData();
+            setupEventListeners();
         });
     </script>
 </body>

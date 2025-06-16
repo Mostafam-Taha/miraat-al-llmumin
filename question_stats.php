@@ -52,12 +52,71 @@ try {
 } catch (PDOException $e) {
     die("حدث خطأ في جلب البيانات: " . $e->getMessage());
 }
+
+
+// استعلام للحصول على الإحصاءات الشهرية (آخر 30 يوم)
+$monthly_stats = $pdo->query("
+    SELECT 
+        DATE(added_date) as day,
+        COUNT(*) as question_count
+    FROM questions
+    WHERE added_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    GROUP BY DATE(added_date)
+    ORDER BY day ASC
+")->fetchAll();
+
+// تحضير بيانات الرسم البياني الشهري
+$monthly_labels = [];
+$monthly_data = [];
+foreach ($monthly_stats as $stat) {
+    $monthly_labels[] = date('d M', strtotime($stat['day']));
+    $monthly_data[] = $stat['question_count'];
+}
+
+// استعلام للحصول على توزيع الأسئلة حسب الأيام في الأسبوع
+$weekday_stats = $pdo->query("
+    SELECT 
+        DAYNAME(added_date) as weekday,
+        COUNT(*) as question_count
+    FROM questions
+    GROUP BY DAYNAME(added_date)
+    ORDER BY FIELD(weekday, 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+")->fetchAll();
+
+// تحضير بيانات أيام الأسبوع
+$weekday_labels = [];
+$weekday_data = [];
+foreach ($weekday_stats as $stat) {
+    $weekday_labels[] = $stat['weekday'];
+    $weekday_data[] = $stat['question_count'];
+}
+
+// استعلام للحصول على توزيع الأسئلة حسب ساعات اليوم
+$hourly_stats = $pdo->query("
+    SELECT 
+        HOUR(added_date) as hour,
+        COUNT(*) as question_count
+    FROM questions
+    GROUP BY HOUR(added_date)
+    ORDER BY hour ASC
+")->fetchAll();
+
+// تحضير بيانات ساعات اليوم
+$hourly_labels = [];
+$hourly_data = [];
+for ($i = 0; $i < 24; $i++) {
+    $hourly_labels[] = sprintf("%02d:00", $i);
+    $hourly_data[$i] = 0;
+}
+foreach ($hourly_stats as $stat) {
+        $hourly_data[$stat['hour']] = $stat['question_count'];
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-        <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="منصة تعليمية متكاملة لمساعدة الطلاب على تنظيم الدراسة، وضع خطط دراسية ذكية، تحسين الأداء الأكاديمي، وحل اختبارات تفاعلية. ابدأ رحلتك نحو التفوق مع أدواتنا الذكية وتقارير الأداء المُفصّلة!">
     <meta name="keywords" content="تنظيم الدراسة, خطط دراسية, تحسين الأداء الدراسي, اختبارات تفاعلية, نصائح دراسية, جدول مذاكرة, مهارات التعلم, مراجعة الدروس, حلول امتحانات, منصة تعليمية, موارد دراسية, إدارة الوقت للطلاب, تعلم فعال, تقنيات الحفظ, التحضير للامتحانات, دروس مجانية, تمارين تدريبية, تقييم ذاتي, تعليم عن بعد, أدوات الدراسة الذكية">
@@ -465,6 +524,10 @@ try {
                 </div>
             </div>
         </div>
+
+        <button class="btn btn-sm btn-outline-primary refresh-btn" title="تحديث البيانات">
+            <i class="bi bi-arrow-repeat"></i> تحديث البيانات
+        </button>
         
         <!-- الرسوم البيانية -->
         <div class="row mt-4">
@@ -493,7 +556,42 @@ try {
                 </div>
             </div>
         </div>
-        
+
+        <!-- الرسوم البيانية الزمنية -->
+        <div class="row mt-4 animate__animated animate__fadeInUp">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0"><i class="bi bi-calendar-range me-2"></i>الإحصاءات الزمنية</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="chart-container mb-4" style="height: 300px;">
+                                    <h5 class="text-center mb-3">عدد الأسئلة المضافة يومياً (آخر 30 يوم)</h5>
+                                    <canvas id="monthlyChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="chart-container mb-4" style="height: 300px;">
+                                    <h5 class="text-center mb-3">توزيع الأسئلة حسب أيام الأسبوع</h5>
+                                    <canvas id="weekdayChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="chart-container mb-4" style="height: 300px;">
+                                    <h5 class="text-center mb-3">توزيع الأسئلة حسب ساعات اليوم</h5>
+                                    <canvas id="hourlyChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- إحصاءات حسب المادة -->
         <div class="row mt-4">
             <div class="col-md-6 animate__animated animate__fadeInUp">
@@ -856,6 +954,136 @@ try {
             window.addEventListener('scroll', animateOnScroll);
             animateOnScroll(); // تشغيل مرة أولى عند التحميل
         });
+
+
+        // إضافة تأثيرات للعناصر عند التمرير
+            const animateElements = document.querySelectorAll('.animate__animated');
+            
+            const animateOnScroll = () => {
+                animateElements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        element.classList.add(element.classList[1]);
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // تشغيل مرة أولى عند التحميل
+            
+            // تحديث الصفحة كل 30 ثانية (30000 ميلي ثانية)
+            setTimeout(function(){
+                location.reload();
+            }, 90000);
+
+
+
+            // رسم بياني شهري
+            const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+            new Chart(monthlyCtx, {
+                type: 'line',
+                data: {
+                    labels: <?php echo json_encode($monthly_labels); ?>,
+                    datasets: [{
+                        label: 'عدد الأسئلة',
+                        data: <?php echo json_encode($monthly_data); ?>,
+                        backgroundColor: 'rgba(67, 97, 238, 0.2)',
+                        borderColor: 'rgba(67, 97, 238, 1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `عدد الأسئلة: ${context.raw}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // رسم بياني لأيام الأسبوع
+            const weekdayCtx = document.getElementById('weekdayChart').getContext('2d');
+            new Chart(weekdayCtx, {
+                type: 'bar',
+                data: {
+                    labels: <?php echo json_encode($weekday_labels); ?>,
+                    datasets: [{
+                        label: 'عدد الأسئلة',
+                        data: <?php echo json_encode($weekday_data); ?>,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // رسم بياني لساعات اليوم
+            const hourlyCtx = document.getElementById('hourlyChart').getContext('2d');
+            new Chart(hourlyCtx, {
+                type: 'line',
+                data: {
+                    labels: <?php echo json_encode($hourly_labels); ?>,
+                    datasets: [{
+                        label: 'عدد الأسئلة',
+                        data: <?php echo json_encode($hourly_data); ?>,
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            document.querySelector('.refresh-btn').addEventListener('click', function() {
+                location.reload();
+            });
     </script>
 </body>
 </html>

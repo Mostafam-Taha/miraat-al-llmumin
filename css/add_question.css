@@ -16,6 +16,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
 }
 
 body {
@@ -288,4 +289,8 @@ select.form-control {
 
 .option-item:hover {
     transform: translateX(5px);
+}
+
+.btn-block {
+    font-family: 'Tajawal', sans-serif;
 }
